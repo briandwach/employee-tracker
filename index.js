@@ -25,13 +25,13 @@ function initPrompt(initPromptList) {
 async function getUserActionAsync() {
     const response = await initPrompt(initPromptList);
     switch (response.action) {
-        case 'View All Departments':
+        case initPromptListArr[0]:
             console.log('View All Departments');
             break;
-        case 'View All Roles':
+        case initPromptListArr[1]:
             console.log('View All Roles');
             break;
-        case 'View All Employees':
+        case initPromptListArr[2]:
             console.log('View All Employees');
             break;
     }
