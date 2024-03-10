@@ -10,6 +10,7 @@
     "license": "MIT",
     "dependencies": {
       "inquirer": "^8.2.4",
+      "inquirer-maxlength-input-prompt": "^1.0.2",
       "pg": "^8.11.3"
     }
   }
