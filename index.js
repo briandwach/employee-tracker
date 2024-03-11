@@ -1,15 +1,17 @@
 const inquirer = require('inquirer');
 
 const viewDataAsync = require('./lib/view.js');
+const addDataAsync = require('./lib/add.js');
 
 const initPromptListArr = [
     'View All Departments',
     'View All Roles',
     'View All Employees',
-    //'Add Department',
-    //'Add Role',
-    //'Add Employee', 
+    'Add Department',
+    'Add Role',
+    'Add Employee', 
     //'Update Employee Role'
+    //'Quit'
 ];
 
 const initPromptList = {
@@ -36,6 +38,15 @@ async function userActionRouterAsync(response) {
             break;
         case initPromptListArr[2]:
             await viewDataAsync(initPromptListArr, initPromptListArr[2]);
+            break;
+        case initPromptListArr[3]:
+            await addDataAsync(initPromptListArr, initPromptListArr[3]);
+            break;
+            case initPromptListArr[4]:
+            await addDataAsync(initPromptListArr, initPromptListArr[4]);
+            break;
+        case initPromptListArr[5]:
+            await addDataAsync(initPromptListArr, initPromptListArr[5]);
             break;
     }
     getUserActionAsync();
