@@ -11,8 +11,8 @@ const initPromptListArr = [
     'Add Department',
     'Add Role',
     'Add Employee',
-    'Update Employee Role'
-    //'Quit'
+    'Update Employee Role',
+    'Quit'
 ];
 
 const initPromptList = {
@@ -52,6 +52,9 @@ async function userActionRouterAsync(response) {
         case initPromptListArr[6]:
             await updateDataAsync(initPromptListArr, initPromptListArr[6]);
             break;
+        case initPromptListArr[7]:
+            console.log('Exiting application.');
+            process.exit();
     }
     getUserActionAsync();
 };
