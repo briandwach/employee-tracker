@@ -1,3 +1,5 @@
+// Object exported for calling functions to validate user input to Inquirer prompts
+
 const invalid = 'Entry is invalid, please try again.';
 
 const validate = {

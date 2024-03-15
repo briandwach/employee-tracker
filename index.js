@@ -1,9 +1,11 @@
 const inquirer = require('inquirer');
 
-const viewDataAsync = require('./lib/view.js');
-const addDataAsync = require('./lib/add.js');
-const updateDataAsync = require('./lib/update.js');
+// Import router functions for different database queries
+const viewDataAsync = require('./queries/view.js');
+const addDataAsync = require('./queries/add.js');
+const updateDataAsync = require('./queries/update.js');
 
+// Current user options for interating with the database
 const initPromptListArr = [
     'View All Departments',
     'View All Roles',
@@ -28,6 +30,7 @@ async function getUserActionAsync() {
     userActionRouterAsync(response);
 };
 
+// Responds to user selection and routes request to the proper query logic
 async function userActionRouterAsync(response) {
     var sql = '';
     switch (response.action) {
