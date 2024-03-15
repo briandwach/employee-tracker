@@ -4,27 +4,12 @@ const inquirer = require('inquirer');
 const MaxLengthInputPrompt = require('inquirer-maxlength-input-prompt');
 inquirer.registerPrompt('maxlength-input', MaxLengthInputPrompt);
 
-//  Imports validation functions for Inquirer prompts
-const validate = require('./validate.js');
+//  Imports database retrieval functions, validation functions for Inquirer prompts, and render to console functions
+const validate = require('../util/validate.js');
+const retrieve = require('../util/retrieve.js');
+const render = require('../util/render.js');
 
-const retrieve = require('./retrieve.js');
-
-const { Pool } = require('pg');
-
-const pool = new Pool(
-    {
-        // TODO: Enter PostgreSQL username
-        user: 'bwow',
-        // TODO: Enter PostgreSQL password
-        password: 'stillflying',
-        host: 'localhost',
-        database: 'employeetracker_db'
-    },
-)
-
-pool.connect();
-
-
+// Routes to specific query based on user selection
 async function addDataAsync(initPromptListArr, userRequest) {
     switch (userRequest) {
         case initPromptListArr[3]:
@@ -53,8 +38,8 @@ async function addDepartmentPromptAsync() {
     ]);
         const department = departmentName.trim();
         const sql = `INSERT INTO department (name) VALUES ('${department}')`;
-        await queryDatabaseAsync(sql);
-        renderFeedback(`Added ${department} to the database.`);
+        await retrieve.queryDatabaseAsync(sql);
+        render.feedback(`Added ${department} to the database.`);
 };
 
 // Function for adding a role to the database
@@ -87,8 +72,8 @@ async function addRolePromptAsync() {
         const role = title.trim();
         const departmentId = await retrieve.queryDepartmentIdByName(department);
         const sql = `INSERT INTO role (title, salary, department_id) VALUES ('${role}', ${parseFloat(salary)}, ${departmentId})`;
-        await queryDatabaseAsync(sql);
-        renderFeedback(`Added ${role} to the database.`);
+        await retrieve.queryDatabaseAsync(sql);
+        render.feedback(`Added ${role} to the database.`);
 };
 
 //Function for adding an employee to the database
@@ -137,27 +122,8 @@ async function addEmployeePromptAsync() {
         } else {managerId = null;}
                
         const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${first}', '${last}', ${roleId}, ${managerId})`;
-        await queryDatabaseAsync(sql);
-        renderFeedback(`Added ${first} ${last} to the database.`);
-};
-
-async function queryDatabaseAsync(sql) {
-    return new Promise((resolve, reject) => {
-        pool.query(sql, (err, result) => {
-            if (err) {
-                console.error(err.message);
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-};
-
-function renderFeedback(databaseFeedback) {
-    console.log(databaseFeedback);
-    console.log('');
-    console.log('');
+        await retrieve.queryDatabaseAsync(sql);
+        render.feedback(`Added ${first} ${last} to the database.`);
 };
 
 module.exports = addDataAsync; 
