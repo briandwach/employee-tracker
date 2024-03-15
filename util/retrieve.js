@@ -5,9 +5,9 @@ const { Pool } = require('pg');
 const pool = new Pool(
     {
         // NOTE: Change this to your PostgreSQL username
-        user: 'bwow',
+        user: '',
         // NOTE: Change this to your PostgreSQL password
-        password: 'stillflying',
+        password: '',
         host: 'localhost',
         database: 'employeetracker_db'
     },
